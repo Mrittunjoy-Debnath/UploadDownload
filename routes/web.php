@@ -18,3 +18,7 @@ Route::get('/', function () {
 });
 
 Route::post('/fileUp','UploadController@onFileUp');
+
+Route::get('/fileDownload/{FolderPath}/{name}','DownloadController@onDownload');
+
+Route::get('/fileList','DownloadController@onSelectFileList');

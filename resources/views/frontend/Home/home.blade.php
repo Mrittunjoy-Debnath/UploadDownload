@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-6 mt-5">
+            <div class="col-md-3 mt-5">
                 <div class="card text-center">
                     <div class="card-header">
                         <h6>Laravel Ajax File Upload</h6>
@@ -17,11 +17,51 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3 mt-5">
+                <table class="table table-bordered">
+
+                    <thead>
+                        <tr>
+                            <td>No</td>
+                            <td>Download</td>
+                        </tr>
+                    </thead>
+                    <tbody class="tableData">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
 @section('script')
     <script type="text/javascript">
+        getFileList();
+        function getFileList()
+        {
+            // axios.get('/fileList')
+            //     .then(function (response)  {
+
+            axios.get('/fileList')
+                .then(response => {
+                    var JSONDATA = response.data;
+
+                $.each(JSONDATA,function (i) {
+                    $('<tr>').html(
+                        "<td>"+JSONDATA[i].id+"</td>"+
+                        "<td><a href='/fileDownload/"+JSONDATA[i].file_path+"'  class='btn  btn-primary'>Download</a></td>"
+                    ).appendTo('.tableData');
+                })
+                    // $('.downloadBtn').click(function () {
+                    //     let file_path = $(this).data('path');
+                    //     alert(file_path);
+                    // });
+                }).catch(response => {
+
+
+            })
+        }
+
        function onUpload()
         {
             // let spinner = "<div class='spinner-border text-info spinner-border-sm' role='status'> </div>";
